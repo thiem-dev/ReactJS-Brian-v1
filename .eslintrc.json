@@ -27,7 +27,7 @@
     "react": {
       "version": "detect"
     },
-    "impot/resolver": {
+    "import/resolver": {
       "node": {
         "extensions": [".js", ".jsx"]
       }
