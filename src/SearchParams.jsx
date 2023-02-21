@@ -27,7 +27,7 @@ const SearchParams = () => {
     <div className="search-params">
       <form
         onSubmit={(e) => {
-          e.prevetDefaultt();
+          e.preventDefault();
           requestPets();
         }}
       >
