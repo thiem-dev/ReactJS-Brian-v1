@@ -7,19 +7,15 @@ const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
 
 const SearchParams = () => {
   const [requestParams, setRequestParams] = useState({
-    location:"";
-    animal:"";
-    breed:"";
+    location: "",
+    animal: "",
+    breed: "",
   });
-  const [pets, setPets] = useState([]);
   const [animal, setAnimal] = useState("");
   const [breeds] = useBreedList(animal);
 
-  const results = useQuery(["search", requestParams,], fetchSearch]);
+  const results = useQuery(["search", requestParams], fetchSearch);
   const pets = results?.data?.pets ?? [];
-
-
-
 
   return (
     <div className="search-params">
@@ -31,30 +27,22 @@ const SearchParams = () => {
             animal: formData.get("animal") ?? "",
             breed: formData.get("breed") ?? "",
             location: formData.get("location") ?? "",
-          }
+          };
+          setRequestParams(obj);
         }}
       >
         <label htmlFor="location">
           Location
-          <input
-            name="location"
-            id="location"
-            placeholder="Location"
-          />
+          <input name="location" id="location" placeholder="Location" />
         </label>
 
         <label htmlFor="animal">
           Animal
           <select
             id="animal"
-            value={animal}
+            name="animal"
             onChange={(e) => {
               setAnimal(e.target.value);
-              setBreed("");
-            }}
-            onBlur={(e) => {
-              setAnimal(e.target.value);
-              setBreed("");
             }}
           >
             <option />
@@ -68,11 +56,7 @@ const SearchParams = () => {
 
         <label htmlFor="breed">
           Breed
-          <select
-            disabled={!breeds.length}
-            id="breed"
-            name="breed"
-          >
+          <select id="breed" disabled={breeds.length === 0} name="breed">
             <option />
             {breeds.map((breed) => (
               <option key={breed} value={breed}>
@@ -81,7 +65,6 @@ const SearchParams = () => {
             ))}
           </select>
         </label>
-
         <button>Submit</button>
       </form>
       <Results pets={pets} />
